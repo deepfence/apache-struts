@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: apache-struts
+  namespace: default
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: apache-struts
+  template:
+    metadata:
+      labels:
+        app: apache-struts
+    spec:
+      containers:
+        - name: apache-struts
+          image: registry.deepfence.net/apache-struts-app:latest
+          imagePullPolicy: Always
+          ports:
+            - name: http
+              containerPort: 8080
+          securityContext:
+            allowPrivilegeEscalation: true
+            seccompProfile:
+              type: Unconfined
+          volumeMounts:
+            - name: tmp
+              mountPath: /tmp
+      imagePullSecrets:
+        - name: registry.deepfence.net
+      terminationGracePeriodSeconds: 0
+      volumes:
+        - name: tmp
+          hostPath:
+            path: /tmp
+            type: Directory

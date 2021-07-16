@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+ 
+<struts>
+
+ 	<constant name="struts.devMode" value="false" />
+ 	<constant name="struts.objectFactory" value="spring" />
+ 	
+	<package name="default" namespace="/" extends="struts-default">
+		
+		<action name="*" class="com.github.jrrdev.HelloWorldAction" method="display">
+			<result name="none">pages/helloworld.jsp</result>
+		</action>
+	</package>
+	
+</struts>
